@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.getCounters();
+    /*this.getCounters();*/
   }
 
   ngOnDestroy(): void {
@@ -44,7 +44,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.filterService.clearFilters(filter);
   }
 
-  private getCounters() {
+/*  private getCounters() {
     this.favouritesSubscription = this.favouritesService
       .getNumberOfItems()
       .subscribe(
@@ -54,5 +54,5 @@ export class HeaderComponent implements OnInit, OnDestroy {
         },
         () => (this.favsCounter = '0')
       );
-  }
+  }*/
 }

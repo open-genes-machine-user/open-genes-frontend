@@ -36,15 +36,14 @@
       </li>
       <li class="menu__link">
         <a [routerLink]="'/favourites'"
-           routerLinkActive="current"
-        >
+           routerLinkActive="current">
+
           <span class="fa far fa-star"></span>
           <span
             [matBadge]="favsCounter"
             [matBadgeHidden]="favsCounter === '0'"
             matBadgeColor="accent"
-            matBadgeOverlap="false"
-          >{{ 'header_menu_favourites' | translate }}</span>
+            matBadgeOverlap="false">{{ 'header_menu_favourites' | translate }}</span>
         </a>
       </li>
       <li class="menu__link">

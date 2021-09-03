@@ -12,11 +12,9 @@ import {
 })
 export class HighlightDirective implements OnChanges, AfterViewInit {
   @Input() highlightText: string; // Фрагмент текста, который необходимо выделить
-  @Input() highlightMinLength: number; // Минимальное количество символов для выделения
+  @Input() highlightMinLength = 3; // Минимальное количество символов для выделения
 
-  constructor(private readonly element: ElementRef) {
-    this.highlightMinLength = 3;
-  }
+  constructor(private readonly element: ElementRef) {}
 
   ngAfterViewInit(): void {
     this.highlightTextFragment();
@@ -49,15 +47,15 @@ export class HighlightDirective implements OnChanges, AfterViewInit {
         .toLowerCase()
         .indexOf(this.highlightText.toLowerCase());
       if (index !== -1) {
-        const range = new Range();
-        range.setStart(this.element.nativeElement.childNodes[0], index);
-        range.setEnd(
-          this.element.nativeElement.childNodes[0],
-          index + this.highlightText.length
-        );
-        const wrapper = document.createElement('mark');
-        wrapper.classList.add('text-highlight');
         try {
+          const range = new Range();
+          range.setStart(this.element.nativeElement.childNodes[0], index);
+          range.setEnd(
+            this.element.nativeElement.childNodes[0],
+            index + this.highlightText.length
+          );
+          const wrapper = document.createElement('mark');
+          wrapper.classList.add('text-highlight');
           range.surroundContents(wrapper);
         } catch (e) {
           // catch exception

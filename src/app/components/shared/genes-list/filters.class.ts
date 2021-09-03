@@ -42,11 +42,14 @@ export abstract class FiltersClass {
     this.filterService.getBySelectionCriteria().subscribe(
       (list) => {
         if (list.length !== 0) {
-          this.apiService.getGeneByHGNCsymbol(str)
+          this.apiService
+            .getGeneByHGNCsymbol(str)
             .pipe(takeUntil(this.subscription$))
             .subscribe(
               (gene) => {
-                gene?.['commentCause'] ? this.searchedData = gene?.['commentCause'] : this.searchedData = [{ 1: ""}];
+                gene?.['commentCause']
+                  ? (this.searchedData = gene?.['commentCause'])
+                  : (this.searchedData = [{ 1: '' }]);
 
                 this.cdRef.markForCheck();
               },

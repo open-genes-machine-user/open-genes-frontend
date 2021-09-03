@@ -1,7 +1,7 @@
-import { Pipe, PipeTransform } from "@angular/core";
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: "splitBy",
+  name: 'splitBy',
 })
 export class SplitByPipe implements PipeTransform {
   transform(value: string, [separator]): string {
@@ -9,7 +9,7 @@ export class SplitByPipe implements PipeTransform {
     if (splits.length > 1) {
       return splits.pop();
     } else {
-      return "";
+      return '';
     }
   }
 }

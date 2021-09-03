@@ -1,10 +1,10 @@
 import {
   NgxGoogleAnalyticsModule,
   NgxGoogleAnalyticsRouterModule,
-} from 'ngx-google-analytics'
-import { BrowserModule } from '@angular/platform-browser'
-import { NgModule } from '@angular/core'
-import { environment } from '../../../environments/environment'
+} from 'ngx-google-analytics';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { environment } from '../../../environments/environment';
 
 @NgModule({
   imports: [

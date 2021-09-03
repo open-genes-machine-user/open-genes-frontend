@@ -9,9 +9,9 @@ import { AssociatedDiseases } from '../../../core/models/openGenesApi/associated
 export class AssociatedDiseasesComponent implements OnInit {
   @Input() geneDiseases: any;
   public mappedDiseases: string[] = [];
-  public geneDiseasesLength: number = 0;
-  public isAccordion: boolean = false;
-  public maxItemsToShow: number = 1;
+  public geneDiseasesLength = 0;
+  public isAccordion = false;
+  public maxItemsToShow = 1;
   public isAccordionOpen: boolean;
 
   constructor() {}

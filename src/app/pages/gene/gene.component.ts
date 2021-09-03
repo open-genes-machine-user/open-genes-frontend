@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { ApiService } from '../../core/services/api/open-genes-api.service';
 import { TranslateService } from '@ngx-translate/core';
 import { takeUntil } from 'rxjs/operators';
 import { PageClass } from '../page.class';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-gene',
@@ -36,6 +37,7 @@ export class GeneComponent extends PageClass implements OnInit, OnDestroy {
   constructor(
     public translate: TranslateService,
     private activateRoute: ActivatedRoute,
+    private router: Router,
     private apiService: ApiService
   ) {
     super();
@@ -57,91 +59,98 @@ export class GeneComponent extends PageClass implements OnInit, OnDestroy {
     this.apiService
       .getGeneByHGNCsymbol(this.symbol)
       .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe((response) => {
-        this.gene = response;
+      .subscribe(
+        (response) => {
+          this.gene = response;
 
-        // Map fields
-        this.geneOntologyProcessMap = this.toMap(
-          this.gene.terms.biological_process
-        );
-        this.geneOntologyComponentMap = this.toMap(
-          this.gene.terms.cellular_component
-        );
-        this.geneOntologyActivityMap = this.toMap(
-          this.gene.terms.molecular_activity
-        );
-        this.expressionMaxValue = GeneComponent.chartMaxValue(
-          this.gene.expression
-        );
-        this.commentsReferenceLinksMap = this.toMap(
-          this.gene.commentsReferenceLinks
-        );
+          // Map fields
+          this.geneOntologyProcessMap = this.toMap(
+            this.gene.terms.biological_process
+          );
+          this.geneOntologyComponentMap = this.toMap(
+            this.gene.terms.cellular_component
+          );
+          this.geneOntologyActivityMap = this.toMap(
+            this.gene.terms.molecular_activity
+          );
+          this.expressionMaxValue = GeneComponent.chartMaxValue(
+            this.gene.expression
+          );
+          this.commentsReferenceLinksMap = this.toMap(
+            this.gene.commentsReferenceLinks
+          );
 
-        // Traits to define if content exists
-        const researchesLengths = [];
-        Object.values(this.gene.researches).forEach((value) => {
-          researchesLengths.push(Number(Object.entries(value).length));
-        });
-        this.isAnyResearchFilled = Math.max(...researchesLengths) !== 0;
-
-        const strongResearches = [
-          ...this.gene.researches?.increaseLifespan,
-          ...this.gene.researches?.ageRelatedChangesOfGene,
-          ...this.gene.researches?.interventionToGeneImprovesVitalProcesses,
-          ...this.gene.researches?.geneAssociatedWithProgeriaSyndromes,
-          ...this.gene.researches?.geneAssociatedWithLongevityEffects,
-        ];
-
-        if (strongResearches.length !== 0) {
-          const strongResearchesLengths = [];
-          strongResearches.forEach((value) => {
-            strongResearchesLengths.push(Number(Object.entries(value).length));
+          // Traits to define if content exists
+          const researchesLengths = [];
+          Object.values(this.gene.researches).forEach((value) => {
+            researchesLengths.push(Number(Object.entries(value).length));
           });
-          this.isAnyStrongResearchFilled =
-            Math.max(...strongResearchesLengths) !== 0;
-        } else {
-          this.isAnyStrongResearchFilled = false;
+          this.isAnyResearchFilled = Math.max(...researchesLengths) !== 0;
+
+          const strongResearches = [
+            ...this.gene.researches?.increaseLifespan,
+            ...this.gene.researches?.ageRelatedChangesOfGene,
+            ...this.gene.researches?.interventionToGeneImprovesVitalProcesses,
+            ...this.gene.researches?.geneAssociatedWithProgeriaSyndromes,
+            ...this.gene.researches?.geneAssociatedWithLongevityEffects,
+          ];
+
+          if (strongResearches.length !== 0) {
+            const strongResearchesLengths = [];
+            strongResearches.forEach((value) => {
+              strongResearchesLengths.push(
+                Number(Object.entries(value).length)
+              );
+            });
+            this.isAnyStrongResearchFilled =
+              Math.max(...strongResearchesLengths) !== 0;
+          } else {
+            this.isAnyStrongResearchFilled = false;
+          }
+
+          if (this.isAnyStrongResearchFilled) {
+            this.isGeneCandidate = false;
+          } else if (
+            (!!this.gene.researches?.proteinRegulatesOtherGenes &&
+              this.gene.researches.proteinRegulatesOtherGenes !== 0) ||
+            (!!this.gene.researches?.additionalEvidences &&
+              this.gene.researches.additionalEvidences.length !== 0)
+          ) {
+            this.isGeneCandidate = true;
+          }
+
+          this.isAnyOrtholog =
+            Object.values(this.gene.orthologs).toString() !== ''; // TODO: backend: instead of {"":""} should be an empty array of objects
+          this.isHpa = this.gene.human_protein_atlas !== '';
+
+          this.isAnyContent =
+            this.gene?.commentEvolution ||
+            this.gene?.commentFunction ||
+            this.gene?.commentCause.length !== 0 ||
+            this.gene?.commentAging ||
+            this.isAnyResearchFilled ||
+            this.gene?.expression.length !== 0 ||
+            this.isAnyOrtholog ||
+            this.gene?.terms;
+
+          this.isAnyGoCategory =
+            this.gene?.terms.biological_process.length >= 1 ||
+            this.gene?.terms.cellular_component.length >= 1 ||
+            this.gene?.terms.molecular_activity.length >= 1;
+
+          this.isNcbiDescription = this.gene?.descriptionNCBI.length !== 0;
+
+          this.isLocationData =
+            this.gene?.band?.length ||
+            this.gene?.locationStart?.length ||
+            this.gene?.locationEnd?.length;
+
+          // TODO: Set properties which values depend on a selected language
+        },
+        (error: HttpErrorResponse) => {
+          this.router.navigate(['/404']);
         }
-
-        if (this.isAnyStrongResearchFilled) {
-          this.isGeneCandidate = false;
-        } else if (
-          (!!this.gene.researches?.proteinRegulatesOtherGenes &&
-            this.gene.researches.proteinRegulatesOtherGenes !== 0) ||
-          (!!this.gene.researches?.additionalEvidences &&
-            this.gene.researches.additionalEvidences.length !== 0)
-        ) {
-          this.isGeneCandidate = true;
-        }
-
-        this.isAnyOrtholog =
-          Object.values(this.gene.orthologs).toString() !== ''; // TODO: backend: instead of {"":""} should be an empty array of objects
-        this.isHpa = this.gene.human_protein_atlas !== '';
-
-        this.isAnyContent =
-          this.gene?.commentEvolution ||
-          this.gene?.commentFunction ||
-          this.gene?.commentCause.length !== 0 ||
-          this.gene?.commentAging ||
-          this.isAnyResearchFilled ||
-          this.gene?.expression.length !== 0 ||
-          this.isAnyOrtholog ||
-          this.gene?.terms;
-
-        this.isAnyGoCategory =
-          this.gene?.terms.biological_process.length >= 1 ||
-          this.gene?.terms.cellular_component.length >= 1 ||
-          this.gene?.terms.molecular_activity.length >= 1;
-
-        this.isNcbiDescription = this.gene?.descriptionNCBI.length !== 0;
-
-        this.isLocationData =
-          this.gene?.band?.length ||
-          this.gene?.locationStart?.length ||
-          this.gene?.locationEnd?.length;
-
-        // TODO: Set properties which values depend on a selected language
-      });
+      );
   }
 
   ngOnDestroy(): void {

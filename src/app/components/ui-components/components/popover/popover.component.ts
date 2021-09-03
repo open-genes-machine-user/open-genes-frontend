@@ -1,9 +1,18 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, Output, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  Output,
+  ViewChild,
+} from '@angular/core';
 
 @Component({
   selector: 'app-popover',
   templateUrl: './popover.component.html',
-  styleUrls: ['./popover.component.scss']
+  styleUrls: ['./popover.component.scss'],
 })
 export class PopoverComponent implements AfterViewInit, OnDestroy {
   @Input() width: string;
@@ -18,7 +27,7 @@ export class PopoverComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('popover') popover: ElementRef;
 
-  constructor() { }
+  constructor() {}
 
   ngAfterViewInit() {
     document.addEventListener('click', this.checkIfClickedInside, true);
@@ -32,5 +41,5 @@ export class PopoverComponent implements AfterViewInit, OnDestroy {
     if (!this.popover.nativeElement.contains(event.target)) {
       this.closeEvent.emit();
     }
-  }
+  };
 }

@@ -1,7 +1,7 @@
-import { Pipe, PipeTransform } from "@angular/core";
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: "unixTimeFormatter",
+  name: 'unixTimeFormatter',
 })
 export class UnixTimeFormatterPipe implements PipeTransform {
   transform(value: number): any {

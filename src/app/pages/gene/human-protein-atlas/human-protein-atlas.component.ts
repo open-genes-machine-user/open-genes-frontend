@@ -1,9 +1,9 @@
-import { Component, Input } from "@angular/core";
-import { TranslateService } from "@ngx-translate/core";
+import { Component, Input } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: "app-human-protein-atlas",
-  templateUrl: "./human-protein-atlas.component.html",
+  selector: 'app-human-protein-atlas',
+  templateUrl: './human-protein-atlas.component.html',
 })
 export class HumanProteinAtlasComponent {
   @Input() public gene: any;

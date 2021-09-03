@@ -1,9 +1,9 @@
-import { Component, EventEmitter, HostListener, Output } from "@angular/core";
+import { Component, EventEmitter, HostListener, Output } from '@angular/core';
 
 @Component({
-  selector: "app-accordion",
-  templateUrl: "./accordion.component.html",
-  styleUrls: ["./accordion.component.scss"],
+  selector: 'app-accordion',
+  templateUrl: './accordion.component.html',
+  styleUrls: ['./accordion.component.scss'],
 })
 export class AccordionComponent {
   @HostListener('click', ['$event.target']) toggle(): void {
@@ -11,6 +11,6 @@ export class AccordionComponent {
     this.isStateOpen.emit(this.isOpen);
   }
 
-  public isOpen: boolean = false;
+  public isOpen = false;
   @Output() isStateOpen: EventEmitter<boolean> = new EventEmitter();
 }

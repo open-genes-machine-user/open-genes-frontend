@@ -1,7 +1,7 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { IconComponent } from "./app-icon.component";
-import { IconService } from "./services/app-icon.service";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { IconComponent } from './app-icon.component';
+import { IconService } from './services/app-icon.service';
 
 @NgModule({
   imports: [CommonModule],

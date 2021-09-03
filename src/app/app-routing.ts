@@ -1,56 +1,56 @@
-import { ExtraOptions, Routes } from "@angular/router";
+import { ExtraOptions, Routes } from '@angular/router';
 
 export const APP_ROUTES: Routes = [
   {
-    path: "",
+    path: '',
     loadChildren: () =>
-      import("./pages/home/home.module").then((m) => m.HomeModule),
+      import('./pages/home/home.module').then((m) => m.HomeModule),
   },
   {
-    path: "gene/:id",
+    path: 'gene/:id',
     loadChildren: () =>
-      import("./pages/gene/gene.module").then((m) => m.GeneModule),
+      import('./pages/gene/gene.module').then((m) => m.GeneModule),
   },
   {
-    path: "about",
+    path: 'about',
     loadChildren: () =>
-      import("./pages/about/about.module").then((m) => m.AboutModule),
+      import('./pages/about/about.module').then((m) => m.AboutModule),
   },
   {
-    path: "news",
+    path: 'news',
     loadChildren: () =>
-      import("./pages/news/news.module").then((m) => m.NewsModule),
+      import('./pages/news/news.module').then((m) => m.NewsModule),
   },
   {
-    path: "favourites",
+    path: 'favourites',
     loadChildren: () =>
-      import("./pages/favourites/favourites.module").then(
+      import('./pages/favourites/favourites.module').then(
         (m) => m.FavouritesModule
       ),
   },
   {
-    path: "developers",
+    path: 'developers',
     loadChildren: () =>
-      import("./pages/api-reference/api-reference.module").then(
+      import('./pages/api-reference/api-reference.module').then(
         (m) => m.ApiReferenceModule
       ),
   },
   {
-    path: "help",
+    path: 'help',
     loadChildren: () =>
-      import("./pages/help/help.module").then((m) => m.HelpModule),
+      import('./pages/help/help.module').then((m) => m.HelpModule),
   },
   {
-    path: "404",
+    path: '404',
     loadChildren: () =>
-      import("./pages/404/404.module").then((m) => m.Error404Module),
+      import('./pages/404/404.module').then((m) => m.Error404Module),
   },
   {
-    path: "**",
-    redirectTo: "/404",
+    path: '**',
+    redirectTo: '/404',
   },
 ];
 
 export const ROUTER_OPTIONS: ExtraOptions = {
-  anchorScrolling: "enabled",
+  anchorScrolling: 'enabled',
 };

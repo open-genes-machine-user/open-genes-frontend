@@ -5,10 +5,10 @@ import {
   Input,
   OnChanges,
   SimpleChanges,
-} from "@angular/core";
+} from '@angular/core';
 
 @Directive({
-  selector: "[appHighlight]",
+  selector: '[appHighlight]',
 })
 export class HighlightDirective implements OnChanges, AfterViewInit {
   @Input() highlightText: string; // Фрагмент текста, который необходимо выделить
@@ -27,7 +27,7 @@ export class HighlightDirective implements OnChanges, AfterViewInit {
    */
   clearHighlight() {
     const wrappers = this.element.nativeElement.querySelector(
-      ".text-highlight-wrapper"
+      '.text-highlight-wrapper'
     );
     if (wrappers) {
       const parent = wrappers.parentNode;
@@ -55,8 +55,8 @@ export class HighlightDirective implements OnChanges, AfterViewInit {
           this.element.nativeElement.childNodes[0],
           index + this.highlightText.length
         );
-        const wrapper = document.createElement("mark");
-        wrapper.classList.add("text-highlight");
+        const wrapper = document.createElement('mark');
+        wrapper.classList.add('text-highlight');
         try {
           range.surroundContents(wrapper);
         } catch (e) {

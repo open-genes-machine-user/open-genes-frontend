@@ -4,13 +4,13 @@ import {
   EventEmitter,
   Input,
   Output,
-} from "@angular/core";
-import { Genes } from "../../../../../../core/models";
-import { Observable } from "rxjs";
+} from '@angular/core';
+import { Genes } from '../../../../../../core/models';
+import { Observable } from 'rxjs';
 
 @Component({
-  selector: "app-gene-menu",
-  templateUrl: "./gene-menu.component.html",
+  selector: 'app-gene-menu',
+  templateUrl: './gene-menu.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GeneMenuComponent {

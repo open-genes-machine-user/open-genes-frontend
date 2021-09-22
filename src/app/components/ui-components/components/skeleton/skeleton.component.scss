@@ -59,6 +59,7 @@ $skeleton-line-height: ($ui-base-height / 2);
         margin-right: 0 !important;
       }
     }
+
   }
   @media (max-width: 576px){
     .skeleton__line{
@@ -68,6 +69,7 @@ $skeleton-line-height: ($ui-base-height / 2);
       }
     }
   }
+
 }
 
 .loader {

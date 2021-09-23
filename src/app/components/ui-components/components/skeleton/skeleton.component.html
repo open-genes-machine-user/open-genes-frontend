@@ -1,5 +1,14 @@
 <div class="skeleton">
-  <div class="skeleton__line-group" *ngFor="let i of quantity(groups).fill(1)">
-    <div class="skeleton__line" *ngFor="let r of row(rows)"></div>
+  <div *ngIf="view === 'line'">
+    <div class="skeleton__line-group"
+         *ngFor="let i of quantity(groups).fill(1)">
+      <div class="skeleton__line skeleton__line--1"></div>
+      <div class="skeleton__line skeleton__line--2"></div>
+    </div>
+  </div>
+  <div *ngIf="view === 'card'" >
+    <div class="skeleton__card-group">
+      <div *ngFor="let r of row(cardRows)" class="skeleton__card"></div>
+    </div>
   </div>
 </div>

@@ -9,8 +9,9 @@ export class SkeletonLoaderComponent {
   @Input()
   groups: number;
   @Input()
-  rows?: number = 3;
+  cardRows?: number = 3;
   quantity = Array;
+  @Input() view?: string = 'line';
 
   row(n: number): Array<number> {
     return Array(n)

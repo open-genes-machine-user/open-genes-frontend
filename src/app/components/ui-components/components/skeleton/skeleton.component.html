@@ -1,17 +1,16 @@
 <div class="skeleton">
-
-  <div *ngIf="view === 'line'">
-    <div class="skeleton__line-group"
-         *ngFor="let i of quantity(groups).fill(1)">
+  <ng-container *ngIf="view === 'line'">
+    <div class="skeleton__lines-row" *ngFor="let i of row(groups)">
       <div class="skeleton__line skeleton__line--1"></div>
       <div class="skeleton__line skeleton__line--2"></div>
     </div>
-  </div>
+  </ng-container>
 
-  <div *ngIf="view === 'card'" >
-    <div class="skeleton__card-group">
-      <div *ngFor="let r of row(cardRows)" class="skeleton__card"></div>
+  <ng-container *ngIf="view === 'card'">
+    <div class="skeleton__cards-row" *ngFor="let r of row(groups)">
+      <div class="skeleton__card" *ngFor="let r of row(cardsInARow)">
+        <div class="card__inner"></div>
+      </div>
     </div>
-  </div>
-
+  </ng-container>
 </div>

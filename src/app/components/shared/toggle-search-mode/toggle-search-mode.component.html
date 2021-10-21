@@ -1,28 +1,63 @@
 <div class="toggle-content">
   <div class="toggle-content__button"
-       [class.toggle-content__button--active]='!isGoTermsMode'
-      (click)="setGoSearchMode()">
+       [class.toggle-content__button--active]="searchMode === 'genesSearch'"
+      (click)="setSearchMode('genesSearch')">
     <button mat-menu-item>
       {{ 'search_for_genes' | translate }}
     </button>
   </div>
 
   <div class="toggle-content__button"
-       [class.toggle-content__button--active]="isGoTermsMode"
-       (click)="setGoSearchMode()">
+       [class.toggle-content__button--active]="searchMode === 'goSearch'"
+       (click)="setSearchMode('goSearch')">
     <button mat-menu-item>
       {{ 'search_for_go_terms' | translate }}
+    </button>
+  </div>
+
+  <div class="toggle-content__button"
+       [class.toggle-content__button--active]="searchMode === 'intersectionsSearch'"
+       (click)="setSearchMode('intersectionsSearch')">
+    <button mat-menu-item>
+      {{ 'search_for_intersections' | translate }}
+    </button>
+  </div>
+
+  <div class="toggle-content__button"
+       [class.toggle-content__button--active]="searchMode === 'horvathClock'"
+       (click)="setSearchMode('horvathClock')">
+    <button mat-menu-item>
+      {{ 'search_for_horvath_clock_genes_desc' | translate }}
+    </button>
+  </div>
+
+  <div class="toggle-content__button"
+       [class.toggle-content__button--active]="searchMode === 'researchesIncreaseLifespan'"
+       (click)="setSearchMode('researchesIncreaseLifespan')">
+    <button mat-menu-item>
+      {{ 'search_for_researches_1' | translate }}
     </button>
   </div>
 </div>
 
 <div class="description">
-  <div class="description-content"
-    [class.hidden]="isGoTermsMode">
-    <span>{{ 'search_for_genes_desc' | translate }}</span>
-  </div>
-  <div class="description-content"
-    [class.hidden]="!isGoTermsMode">
-    <span>  {{ 'search_for_go_terms_desc'  | translate }}</span>
+  <div class="description-content">
+    <h2>
+    <ng-container *ngIf="searchMode === 'genesSearch'">
+      {{ 'search_for_genes_desc' | translate }}
+    </ng-container>
+    <ng-container *ngIf="searchMode === 'goSearch'">
+      {{ 'search_for_go_terms_desc'  | translate }}
+    </ng-container>
+    <ng-container *ngIf="searchMode === 'intersectionsSearch'">
+      {{ 'search_for_intersections_desc'  | translate }}
+    </ng-container>
+    <ng-container *ngIf="searchMode === 'horvathClock'">
+      {{ 'search_for_horvath_clock_genes_desc'  | translate }}
+    </ng-container>
+    <ng-container *ngIf="searchMode === 'researchesIncreaseLifespan'">
+      {{ 'search_for_researches_1_desc'  | translate }}
+    </ng-container>
+    </h2>
   </div>
 </div>

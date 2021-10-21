@@ -1,11 +1,13 @@
+import { SearchModes } from './search-modes.model';
+
 export interface Settings {
   showUiHints: boolean;
-  isGoSearchMode: boolean;
+  searchMode: SearchModes;
   isTableView: boolean;
 }
 
 export enum SettingsEnum {
   showUiHints = 'showUiHints',
-  isGoSearchMode = 'isGoSearchMode',
+  searchMode = 'searchMode',
   isTableView = 'isTableView',
 }

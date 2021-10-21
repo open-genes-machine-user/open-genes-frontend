@@ -17,6 +17,8 @@ import { Subject } from 'rxjs';
 import { ApiService } from '../../../core/services/api/open-genes-api.service';
 import { ToMap } from '../../../core/utils/to-map';
 import { SettingsService } from '../../../core/services/settings.service';
+import { SettingsEnum } from '../../../core/models/settings.model';
+import { SearchModes } from '../../../core/models/search-modes.model';
 
 @Component({
   selector: 'app-search',
@@ -34,11 +36,9 @@ export class SearchComponent extends ToMap implements OnInit, OnDestroy {
     this.searchForm.get('searchField').setValue('');
   }
 
-  @Output() dataFromSearchBar: EventEmitter<string> = new EventEmitter<string>();
+  @Output() dataFromSearchBar: EventEmitter<any> = new EventEmitter<any>();
 
-  public searchedData: Genes[] = [];
-  public foundGenes: string[];
-  public notFoundGenes: string[] = [];
+  public searchedData: Genes[];
   public searchForm: FormGroup;
   public isGoTermsMode: boolean;
   public showSearchResult = false;
@@ -47,6 +47,7 @@ export class SearchComponent extends ToMap implements OnInit, OnDestroy {
   public molecularActivity: Map<any, any>;
 
   private subscription$ = new Subject();
+  private settingsKey = SettingsEnum;
 
   constructor(
     private renderer: Renderer2,
@@ -68,8 +69,8 @@ export class SearchComponent extends ToMap implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.searchForm
-      .get('searchField').valueChanges
-      .pipe(
+      .get('searchField')
+      .valueChanges.pipe(
         filter((query: string) => !!query),
         map((query: string) => query.toLowerCase()),
         filter((query: string) => {
@@ -112,31 +113,28 @@ export class SearchComponent extends ToMap implements OnInit, OnDestroy {
   }
 
   private autocompleteSearch(query: string): void {
-    this.searchedData = [];
-    this.notFoundGenes = [];
-    const arrayOfWords = query
-      .toLowerCase()
-      .split(',')
-      .map((res) => res.trim())
-      .filter((res) => res);
-
-    const uniqWords = [...new Set(arrayOfWords)];
-
-    if (uniqWords.length !== 0) {
-      this.foundGenes = uniqWords.filter((symbol) => {
-        const foundGene = this.genesList.find((gene) => symbol === gene.symbol.toLowerCase());
-
-        foundGene ? this.searchedData.push(foundGene) : this.notFoundGenes.push(symbol);
-
-        return !!foundGene;
+    if (query.length !== 0) {
+      this.searchedData = this.genesList.filter((gene) => {
+        const searchedText = [gene.symbol, gene.id, gene?.ensembl, gene.name, ...gene.aliases].join(' ').toLowerCase();
+        return searchedText.includes(query);
       });
     }
-    console.log(this.foundGenes);
+  }
+
+  public setSearchMode(mode: SearchModes): void {
+    this.settingsService.setSettings(this.settingsKey.searchMode, mode);
+    this.isGoTermsMode = mode === 'goSearch';
+    this.searchedData = [];
+    this.searchForm.get('searchField').setValue('');
+    this.onSearch();
   }
 
   public onSearch(): void {
     const query: string = this.searchForm.get('searchField').value;
-    this.dataFromSearchBar.emit(query.toLowerCase());
+    this.dataFromSearchBar.emit({
+      isGoTermsMode: this.isGoTermsMode,
+      searchQuery: query.toLowerCase(),
+    });
   }
 
   public cancelSearch(event?): void {

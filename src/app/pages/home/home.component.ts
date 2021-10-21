@@ -93,7 +93,7 @@ export class HomeComponent extends WindowWidth implements OnInit, OnDestroy {
   }
 
   public setSearchMode(event): void {
-    this.isGoTermsMode = event;
+    this.isGoTermsMode = event === 'goSearch';
   }
 
   /**

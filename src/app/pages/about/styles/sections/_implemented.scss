@@ -1,0 +1,93 @@
+.about-page {
+  &__implemented {
+    padding: #{$padding-large * 3} 0;
+    background: linear-gradient(#{$linear-gradient-1});
+    text-align: center;
+
+    h2 {
+      display: block;
+      color: $color-black;
+      line-height: 1.5;
+      margin-bottom: .8em;
+    }
+
+    p {
+      font-size: .9em;
+      color: $color-black-light
+    }
+  }
+}
+
+.small-feature-block {
+  $block-size: 40px;
+  display: flex;
+  padding: 10px;
+
+  &__inner {
+    display: flex;
+    flex-flow: row wrap;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    min-height: $block-size;
+    position: relative;
+    text-align: left;
+    color: $color-white;
+  }
+
+  &__cover {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    width: $block-size;
+    height: $block-size;
+    color: $color-white;
+    background-color: $color-orange-200;
+    border-radius: $border-radius-regular;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-shadow: inset 0 -1px 0 1px rgba($color-black, .1);
+
+    .fa {
+      font-size:  $block-size / 3;
+    }
+  }
+
+  &__name {
+    width: 100%;
+    display: inline-block;
+    padding: 0 10px 0 #{$block-size + 10px};
+    font-size: $font-size-bigger;
+    font-weight: $font-weight-medium;
+    text-shadow: 0 1px 20px $color-general-dark;
+  }
+
+  &:nth-child(2) {
+    .small-feature-block__cover {
+      background-color: $color-clikable-500;
+    }
+  }
+
+  &:nth-child(3) {
+    .small-feature-block__cover {
+      background-color: $color-green-light;
+    }
+  }
+
+  &:nth-child(4) {
+    .small-feature-block__cover {
+      background-color: $color-general;
+    }
+  }
+
+  &:nth-child(5) {
+    .small-feature-block__cover {
+      background-color: $color-red-medium;
+    }
+  }
+}

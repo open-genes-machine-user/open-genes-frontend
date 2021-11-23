@@ -1,0 +1,19 @@
+.about-page {
+  &__statement {
+    padding: #{$padding-large * 3} 0;
+    background: linear-gradient($color-general-light, $color-general-semi);
+    text-align: center;
+
+    h2 {
+      display: block;
+      color: $color-black;
+      line-height: 1.5;
+      margin-bottom: .8em;
+    }
+
+    p {
+      font-size: .9em;
+      color: $color-black-light
+    }
+  }
+}

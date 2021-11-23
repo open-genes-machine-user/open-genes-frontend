@@ -144,6 +144,7 @@ export class SearchComponent extends ToMap implements OnInit, OnDestroy {
   }
 
   private searchByGenes(query: string): void {
+    console.log(query);
     this.searchedData = this.genesList?.filter((gene) => {
       // Fields always acquired in response
       const searchedText = [

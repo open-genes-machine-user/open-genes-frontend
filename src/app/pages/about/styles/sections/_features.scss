@@ -1,6 +1,6 @@
 .about-page {
   &__features {
-    padding: #{$padding-large + 10px} 0 40px 0;
+    padding: calc(#{$padding-large} + 10px) 0;
     background-color: $color-black;
     color: $color-white;
 

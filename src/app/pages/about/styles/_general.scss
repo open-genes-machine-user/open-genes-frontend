@@ -10,6 +10,24 @@
     hyphens: auto;
   }
 
+  // TODO: DRY
+  .link {
+    color: $color-general;
+
+    &:hover,
+    &:active {
+      color: lighten(mix($color-general, $color-blue, 5%), 3%);
+    }
+
+    &--white {
+      &,
+      &:hover,
+      &:active {
+        color: $color-white;
+      }
+    }
+  }
+
   .panel {
     padding: 40px 24px;
   }

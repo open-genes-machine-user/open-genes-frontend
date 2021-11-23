@@ -1,7 +1,7 @@
 .about-page {
   &__implemented {
-    padding: #{$padding-large * 3} 0;
-    background: linear-gradient(#{$linear-gradient-1});
+    padding: calc(10vw + 40px) 0 calc(10vw + 60px) 0;
+    background: linear-gradient($color-general-light, $color-general-semi);
     text-align: center;
 
     h2 {
@@ -33,7 +33,6 @@
     min-height: $block-size;
     position: relative;
     text-align: left;
-    color: $color-white;
   }
 
   &__cover {
@@ -64,7 +63,6 @@
     padding: 0 10px 0 #{$block-size + 10px};
     font-size: $font-size-bigger;
     font-weight: $font-weight-medium;
-    text-shadow: 0 1px 20px $color-general-dark;
   }
 
   &:nth-child(2) {

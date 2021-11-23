@@ -1,5 +1,5 @@
 .about-page__contribute {
-  padding: #{$padding-large} 0 calc(#{$padding-large} + 60px) 0;
+  padding: calc(8vw + 20px) 0 calc(8vw + 60px) 0;
   background-color: $color-black-500;
   color: $color-white;
 
@@ -15,7 +15,7 @@
       justify-content: space-between;
       text-align: center;
       padding: 0 #{$padding-large};
-      margin-top: calc(#{$padding-large} + 10px);
+      margin-top: calc(30px + 1vw);
 
       .section__title,
       .section__description,

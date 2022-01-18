@@ -25,9 +25,9 @@ npm run storybook
 ---
 ## Build for different environments
 
-Dev. stand test build: `npm run build`
+Dev. stand test build: `npm run build-dev`
 
-Staging stand build: `npm run build-staging`
+Staging stand build: `npm run build-demo`
 
 Prod. AOT build: `npm run build-prod`
 
